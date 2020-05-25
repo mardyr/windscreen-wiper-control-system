@@ -31,6 +31,15 @@
     <ClCompile Include="main.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
+    <ClCompile Include="UART0.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="GPIO.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="timer2.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="avr.props">
@@ -50,6 +59,18 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="can_driv.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="uart0.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="fifo.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="GPIO.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="timer2.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>

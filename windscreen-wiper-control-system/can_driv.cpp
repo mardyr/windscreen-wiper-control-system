@@ -1,5 +1,7 @@
 #include <avr/io.h>
 #include "can_driv.h"
+
+
 //==========================================================================================
 bool CAN::SetupMOb(uint8_t&mob, uint8_t& mode, uint32_t &CAN_ID_Low, uint32_t   &CAN_ID_High)
 {
@@ -19,13 +21,15 @@ bool CAN::SetupMOb(uint8_t&mob, uint8_t& mode, uint32_t &CAN_ID_Low, uint32_t   
 	MOB_IRQ_ENABLE(mob);
 
 	//calculate and set mask
-	maskId = ~(CAN_ID_High - CAN_ID_Low);
-	SET_EXTENDED_MASK(maskId);
+	maskId = ~(CAN_ID_High - CAN_ID_Low);  // mask 3 LSB
+	SET_STD_MSK(maskId);
 
 	//calculate and set CAN ID
 	canId = (maskId & CAN_ID_Low);
-	SET_EXTENDED_ID(canId);
+	SET_STD_ID(canId);
 
+	
+	
 	//enable interrupt of MOb
 	MOB_IRQ_ENABLE(mob);
 

@@ -1,7 +1,9 @@
 #pragma once
 
+#ifndef F_CPU
+#define F_CPU 8000000UL
+#endif // !F_CPU
 #include <avr/io.h>
-
 
 // CAN Enable
 #define CAN_ENABLE			      {CANGCON |= (1<<ENASTB);}
@@ -54,6 +56,18 @@
         CANIDM4 = CAN_SET_EXT_ID_4_0(mask);\
 		CANIDM4 = (1<<IDEMSK);}
 
+//STANDARD CAN DATA FRAME
+#define CAN_SET_STD_ID_10_4(identifier)  (((*((unsigned char *)(&(identifier))+1))<<5)+((* (unsigned char *)(&(identifier)))>>3))
+#define CAN_SET_STD_ID_3_0( identifier)  (( * (unsigned char *)(&(identifier))   )<<5)
+// STD ID TAG writing
+#define SET_STD_ID(identifier)  { CANIDT1   = CAN_SET_STD_ID_10_4(identifier); \
+                                      CANIDT2   = CAN_SET_STD_ID_3_0( identifier); \
+                                      CANCDMOB &= (~(1<<IDE))                    ; }
+// SET STANDARD CAN MASK
+#define SET_STD_MSK(mask)       { CANIDM1   = CAN_SET_STD_ID_10_4(mask); \
+                                      CANIDM2   = CAN_SET_STD_ID_3_0( mask); }
+
+
 //SET MOb to Enable TX/RX,Disable
 #define CONMOB_MSK 		((1<<CONMOB1)|(1<<CONMOB0))
 #define MOb_Tx_ENA 1
@@ -67,7 +81,7 @@
          CAN_BAUDRATE_250K, CAN_BAUDRATE_500K, CAN_BAUDRATE_1000K};
 enum { DISABLED, TX_DATA, RX_DATA, TX_REMOTE, AUTO_REPLY };
 
-#define MAX_MOB 15
+#define MAX_MOB 14
 
 class CAN
 {

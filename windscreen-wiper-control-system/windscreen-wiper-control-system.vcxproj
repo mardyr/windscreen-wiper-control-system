@@ -42,7 +42,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="can_driv.cpp" />
+    <ClCompile Include="GPIO.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="UART0.cpp" />
+    <ClCompile Include="timer2.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="avr.props" />
@@ -54,6 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="can_driv.h" />
+    <ClInclude Include="fifo.h" />
+    <ClInclude Include="GPIO.h" />
+    <ClInclude Include="timer2.h" />
+    <ClInclude Include="uart0.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
