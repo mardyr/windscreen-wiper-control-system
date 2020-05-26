@@ -1,3 +1,4 @@
+
 #include <avr/io.h>
 #include <avr/interrupt.h>
 #include "uart0.h"
@@ -5,10 +6,12 @@
 #include "GPIO.h"
 #include "can_driv.h"
 #include <util/delay.h>
-
+#include "Init.h"
 void WDT_off();
-int main(void)
+ 
+int main()
 {
+	
 	WDT_off();
 	DDRB = 0;	// all pins inputs
 	/*
@@ -17,25 +20,69 @@ int main(void)
 	 PB2 - 3 level of wiper gear
 	 PB3 - 4 level of wiper gear
 	 */
-	GPIO level1('B', 0);
-	level1.SetOutput();
-	GPIO level2('B', 1);
-	level1.SetOutput();
-	GPIO level3('B', 2);
-	level1.SetOutput();
-	GPIO level4('B', 3);
-	level1.SetOutput();
+
 	
-	Uart0 serial0(115200);
+	level1.SetInput();
+	level2.SetInput();
+	level3.SetInput();
+	level4.SetInput();
+	washMotor.SetOutput();
+	wiperMotor.SetOutput();
 	
-	CAN t_CAN;
-	uint8_t mob = 7;
-	uint8_t mode = TX_DATA; // mode
-	uint32_t ID_Low = 0x7F8; //
-	uint32_t ID_High = 0x7FF;
-	t_CAN.SetupMOb(mob, mode, ID_Low, ID_High);
+	Uart0 serial0(115200);   // set baudrate
 	
+	CAN t_CAN;    // transmitter
+	CAN r_CAN;     //receive
 	
+	uint8_t tmob = 4;
+	uint8_t tmode = TX_DATA; // mode
+	uint32_t tID_Low = 0x7F2; // mask to achieve 4 different state
+	uint32_t tID_High = 0x7F5;// 
+	
+	uint8_t  rmob = 4;
+	uint8_t	 rmode = RX_DATA;  // mode
+	uint32_t rID_Low = 0x0F0;  // mask to achieve 4 different state
+	uint32_t rID_High = 0x0F4; //
+	CTimer2 rtc();
+	t_CAN.SetupMOb(tmob, tmode, tID_Low, tID_High);  // setup transmitter
+	r_CAN.SetupMOb(rmob, rmode, rID_Low, rID_High);
+	while (1)
+	{
+		if (!(PINB&(1 << PB0)))		// mode 1 - on
+			{
+				uint16_t id = 0x11111111011;
+				MOb.id = id;
+				Mode1();
+				serial0.write(id);      			// send ID
+				serial0.read(id);   				// receive by wiper node
+			}
+		if (!(PINB&(1 << PB1)))			// mode 2 - on
+			{
+				uint16_t id = 0x11111111010;
+				MOb.id = id;
+				Mode2();
+				serial0.write(id);       			// send ID
+				serial0.read(id);    				// receive by wiper node
+				
+			}
+		if (!(PINB&(1 << PB2)))			// mode 3 - on
+			{
+				uint16_t id = 0x11111111001;
+				MOb.id = id;
+				Mode3();
+				serial0.write(id);       			// send ID
+				serial0.read(id);    				// receive by wiper node
+				
+			}
+		if (!(PINB&(1 << PB3)))			// mode 4- on
+			{
+				uint16_t id = 0x11111111000;
+				MOb.id = id;
+				Mode4();
+				serial0.write(id);       			// send ID
+				serial0.read(id);    				// receive by wiper node
+			}
+	}
 	return 0;
 }
 

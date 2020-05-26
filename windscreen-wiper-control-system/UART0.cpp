@@ -2,11 +2,11 @@
 #include <avr/interrupt.h>
 #include "fifo.h"
 #include "uart0.h"
+#include "can_driv.h"
+static CBuffer<uint16_t, 20> TxBuffer;
+static CBuffer<uint16_t, 20> RxBuffer;
 
-static CBuffer<uint8_t, 20> TxBuffer;
-static CBuffer<uint8_t, 20> RxBuffer;
-
-bool Uart0::read(uint8_t &c)
+bool Uart0::read(uint16_t &c)
 {
 	if (RxBuffer.isEmpty()) {
 		return false;
@@ -17,7 +17,7 @@ bool Uart0::read(uint8_t &c)
 	return true;
 }
 
-bool Uart0::write(uint8_t c)
+bool Uart0::write(uint16_t &c)
 {
 	if (!TxBuffer.isFull()) {
 		TxBuffer.Put(c);
@@ -35,7 +35,7 @@ bool Uart0::write(uint8_t c)
 ISR(USART0_UDRE_vect)
 {
 	cli();
-	uint8_t c;
+	uint16_t c;
 	if (!TxBuffer.isEmpty()) {
 		TxBuffer.Get(c);
 		UDR0 = c;
@@ -49,7 +49,7 @@ ISR(USART0_UDRE_vect)
 ISR(USART0_RX_vect)
 {
 	cli();
-	uint8_t data = UDR0;
+	uint16_t data = UDR0;
 	RxBuffer.Put(data);
 	sei();
 }

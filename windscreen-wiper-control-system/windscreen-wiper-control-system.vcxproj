@@ -41,11 +41,13 @@
   <ItemDefinitionGroup>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ADC.cpp" />
     <ClCompile Include="can_driv.cpp" />
     <ClCompile Include="GPIO.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="UART0.cpp" />
     <ClCompile Include="timer2.cpp" />
+    <ClCompile Include="wiperModes.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="avr.props" />
@@ -59,6 +61,7 @@
     <ClInclude Include="can_driv.h" />
     <ClInclude Include="fifo.h" />
     <ClInclude Include="GPIO.h" />
+    <ClInclude Include="Init.h" />
     <ClInclude Include="timer2.h" />
     <ClInclude Include="uart0.h" />
   </ItemGroup>

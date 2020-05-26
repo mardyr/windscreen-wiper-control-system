@@ -15,13 +15,13 @@ CTimer2::CTimer2(void) {
 	TIMSK2 |= (0 << TOIE2);
 	ASSR   = (1 << AS2);
 
-	TCNT2 = 0;               // clear TCNT2A
-	TCCR2A |= (1 << CS22) | (1 << CS20);   // select prescaler: 32.768 kHz / 128 = 1 sec between each overflow
+	TCNT2 = 0;								// clear TCNT2A
+	TCCR2A |= (1 << CS22) | (1 << CS20);	// select prescaler: 32.768 kHz / 128 = 1 sec between each overflow
 
 
-	while((ASSR & 0x01) | (ASSR & 0x04));        // wait for TCN2UB and TCR2UB to be cleared
+	while((ASSR & 0x01) | (ASSR & 0x04));    // wait for TCN2UB and TCR2UB to be cleared
 
-	TIFR2 = 0xFF;            // clear interrupt-flags
+	TIFR2 = 0xFF;							// clear interrupt-flags
 
 	TIMSK2 |= (1 << TOIE2);
 }

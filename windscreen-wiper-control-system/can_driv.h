@@ -82,7 +82,12 @@
 enum { DISABLED, TX_DATA, RX_DATA, TX_REMOTE, AUTO_REPLY };
 
 #define MAX_MOB 14
-
+struct MOb_struct {
+	uint32_t id;
+	uint8_t number;
+	uint8_t length;
+	uint8_t data[8];
+};
 class CAN
 {
 public:

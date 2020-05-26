@@ -40,6 +40,12 @@
     <ClCompile Include="timer2.cpp">
       <Filter>Source files</Filter>
     </ClCompile>
+    <ClCompile Include="ADC.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
+    <ClCompile Include="wiperModes.cpp">
+      <Filter>Source files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="avr.props">
@@ -71,6 +77,9 @@
       <Filter>Header files</Filter>
     </ClInclude>
     <ClInclude Include="timer2.h">
+      <Filter>Header files</Filter>
+    </ClInclude>
+    <ClInclude Include="Init.h">
       <Filter>Header files</Filter>
     </ClInclude>
   </ItemGroup>

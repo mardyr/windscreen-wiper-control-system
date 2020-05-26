@@ -8,7 +8,7 @@
 
 #include <avr/io.h>
 //#include "fifo.h"
-
+#include "can_driv.h"
 #define UBRR_CALC(baudRate,xtalCpu) ((xtalCpu)/((baudRate)*8l)-1)
 
 class Uart0 {
@@ -34,8 +34,8 @@ public:
 	}
 	;
 
-	bool read(uint8_t &c);
-	bool write(uint8_t c);
+	bool read(uint16_t&c);
+	bool write(uint16_t&c);
 
 private:
 	uint16_t m_txByte, m_rxByte, m_error;
