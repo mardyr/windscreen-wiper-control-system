@@ -14,5 +14,5 @@ Automatic steering is performed by Rain Sensor, which change voltage of relfecte
 - 0,5 Hz 0,7 V <=U < 1 V
 - 0,8 Hz  U < 0,7 V
 
-Using CAN interface manual steering force work of windscreen wiper 
+Using CAN interface manual steering force work on windscreen wiper 
 ( wins arbitration)
