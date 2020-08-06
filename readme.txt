@@ -1,5 +1,5 @@
 //-------------------------------------------
-// Authors : Marcin Dyrdół, Szymon Jop, Kamil Szychowski
+// Author : Marcin Dyrdół
 //-------------------------------------------
 // Version of windscreen wiper control system implemented in AT90CAN32 using Visual Studio with VisualGDB.
 
